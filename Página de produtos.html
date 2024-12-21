@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="geral.css">
+    <script src="Script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="logo" class="centralizado"></div>
+        <div id="navegacao" class="centralizado">
+            <a class="navegacao" href="./Página inicial.html">Pagina Inicial</a>
+            <a class="navegacao atual" href="./Página de produtos.html">Produtos</a>
+            <a class="navegacao">Cupons</a>
+            <a class="navegacao"  href="./Carrinho.html">Carrinho</a>
+            <a class="navegacao" href="./Login.html">Perfil</a>
+        </div>
+    </div>
+    
+    <div id="meio">
+        <div id="filtroEspaco" class="centralizado">
+            <div id="filtro"></div>
+        </div>
+        <div id="produtosEspaco" class="centralizado">
+            <div id="produtos">
+                <!--
+                <div class="produtos">
+                    <button id="produto1" class="botao_produto">oi oi</button>
+                    <button id="produto2" class="botao_produto">oi oi</button>
+                -->
+                </div>
+            </div>
+        </div>
+    <div id="warning" class="centralizado">Produto adicionado</div>
+    <div id="footer"></div>
+</body>
+</html>
+
+
+<script>
+
+    var contador = 1;
+    warnings = document.getElementById("warning");
+    warnings.style = "display: none";
+
+    var test = {
+        
+        produto1: {
+        Nome: "Case F3 para HD SATAP 2.5",
+        Valor: "R$ 9,99",
+        Imagem: "./produto.jpg",
+        Descricao: "aaaa"
+        },
+        produto2: {
+        Nome: "Notebook Ultra, com Windows 11 Home",
+        Valor: "R$ 1398,00",
+        Imagem: "./produto1.jpg",
+        Descricao: "aaaa"
+        },
+        produto3: {
+        Nome: "Teclado Gamer Exbom",
+        Valor: "R$ 59,42",
+        Imagem: "./produto2.jpg",
+        Descricao: "aaaa"
+        },
+        produto4: {
+        Nome: "TMouse Gamer Logitech G203 Prodigy",
+        Valor: "R$ 239,00",
+        Imagem: "./produto3.jpg",
+        Descricao: "aaaa"
+        },
+        produto5: {
+        Nome: "HD Externo 4TB Portátil Toshiba",
+        Valor: "R$ 839,99",
+        Imagem: "./produto4.jpg",
+        Descricao: "aaaa"
+        }
+
+        
+        
+    };
+    
+
+    for(let key in test){
+        
+	var div = $("<div id='produto_case"+contador+"' class='produtos centralizado' style='text-align:center'></div>");
+$("#produtos").append(div);
+	
+	var img1 = $("<img class='produto' src='"+test[key]['Imagem']+"'></img>");
+	$(div).append(img1);
+
+    var hr = $("<hr>")
+    $(div).append(hr);
+
+    var div2 = $("<div id='p"+contador+"' style='text-align:center'></div>");
+    $(div).append(div2);
+
+    var pa = $("<h1 class='NomeProduto'>"+test[key]["Nome"]+"</h1>");
+    $(div2).append(pa);
+
+    var pa2 = $("<h1 class='ValorProduto'>"+test[key]["Valor"]+"</h1>");
+    $(div2).append(pa2);
+
+    var btn = $("<button id='btn"+contador+"' class='BotaoComprar' value='produto"+contador+"'></button>");
+    $(div).append(btn);
+
+    //Converter todos os abaixo para html, e depois colocar tudo dentro do div!!!!!
+
+
+
+        
+
+        contador = contador+1;
+    };
+
+
+
+    function Ler_Produto(){
+        id = event.srcElement.id;
+        console.log(test[id]);
+        const div = document.createElement("div");
+        div.setAttribute("id","produto_case"+contador);
+        div.setAttribute("class","produtos");
+        document.getElementById("produtos").appendChild(div);
+        const pa = document.createElement("p");
+        pa.innerText = test[id]["Nome"];
+        document.getElementById("produto_case"+contador).appendChild(pa);
+        contador = contador+1;
+        console.log(contador);
+    }
+
+
+    function Add_Carrinho() {
+        id = event.srcElement.id;
+        button = document.getElementById(id);
+        console.log(button.value);
+        if (localStorage.getItem(button.value) != null) {
+            var atual = localStorage.getItem(button.value);
+            atual = parseInt(atual);
+            localStorage.setItem(button.value, atual+1);
+        }
+        else {
+            localStorage.setItem(button.value, 1);
+        }
+        console.log(localStorage.getItem(button.value));
+        
+        const oi = setTimeout(() => {warnings.style = "display: default";}, 1);
+        const oai = setTimeout(() => {warnings.style = "display: none";}, 750);
+    }
+
+
+    
+    $(".botao_produto").click(Ler_Produto);
+    $(".BotaoComprar").click(Add_Carrinho);
+
+
+    
+
+    
+    
+    
+    
+        </script>
